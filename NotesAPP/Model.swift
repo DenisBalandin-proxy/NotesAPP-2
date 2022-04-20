@@ -8,14 +8,35 @@
 
 import UIKit
 
+
+
+
+
+import UIKit
+
 class Model: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    
+            struct EmptyCheck {
+                
+                
+                var w = "XXX"
+                
+        var emptyState = String()
+        var emptyString = String()
+        var empty: String? {
+            get {
+                return emptyState
+            }
+            set (newValue) {
+                if newValue?.isEmpty ?? true {
+                    emptyState = "Yes"
+                } else {
+                    emptyState = "No"
+                }
+            }
+        }
     }
-    */
-
+    
 }
