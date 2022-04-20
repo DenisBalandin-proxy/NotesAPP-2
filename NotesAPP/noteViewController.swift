@@ -8,41 +8,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class noteViewController: UIViewController {
+    
+    
+    
+    var model: Model? {
+        
+        didSet {
+            
+            guard let model = model else {return}
+            self.mainTextView.text = model.text
+            self.titleTextField.text = model.title
+            self.datePickField.text = model.date
+        }
+    }
 
 
         let date = Date()
     var holderDate = String()
-    
-    
-    let model = Model()
-       
-
+  //  let model = Model()
  let mainTextView: UITextView = {
             
         let mainTextView = UITextView()
             mainTextView.translatesAutoresizingMaskIntoConstraints = false
             return mainTextView
-            
             }()
     
     let titleTextField: UITextField = {
          let titleTextField = UITextField()
          titleTextField.translatesAutoresizingMaskIntoConstraints = false
-
          return titleTextField
      }()
 
-    
     let datePickField = UITextField()
-    
-
     public let defaults = UserDefaults.standard
-    
-    
-    
     public let myButton = UIBarButtonItem()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,15 +61,8 @@ class ViewController: UIViewController {
            }
 
         
-        
-        
-        
-        
-    
     override func loadView() {
        self.view = Lauout()
-        
-        
         
         
               mainTextView.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
@@ -94,27 +87,9 @@ class ViewController: UIViewController {
 
                 mainTextView.text = defaults.string(forKey: "mainText")
                 titleTextField.text = defaults.string(forKey: "topText")
-
-
-
-             //   view.backgroundColor = .white
                 navigationItem.rightBarButtonItem = myButton
-                
-                
-               // datePickField.translatesAutoresizingMaskIntoConstraints = false
                 mainTextView.becomeFirstResponder()
-    
-        
-        
-                
-
-        
-         
-         
           view().setConstraints()
-        
-         
-        
     }
     
     
@@ -122,18 +97,12 @@ class ViewController: UIViewController {
        return self.view as! Lauout
     }
     
-    
-    
-    
-    
     @objc public func stopFocusing() {
             save()
-        
-        
             mainTextView.text = defaults.string(forKey: "mainText")
             titleTextField.text = defaults.string(forKey: "topText")
 
-            var emptyCck = Model.EmptyCheck()
+            var emptyCck = EmptyCheck()
             emptyCck.empty = mainTextView.text
             let val1 = emptyCck.empty
             emptyCck.empty = titleTextField.text
@@ -169,16 +138,7 @@ class ViewController: UIViewController {
                 datePickField.resignFirstResponder()
             }
         }
-    
-    
-    
-
-    
-    
     }
-
-
-
 
     extension UIViewController {
         func showAlertt(on viewController: UIViewController, with title: String, message: String) {
@@ -193,7 +153,6 @@ class ViewController: UIViewController {
         }
     }
 
-    
 extension UITextField {
     func datePicker<T>(
         targer: T,

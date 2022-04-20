@@ -10,41 +10,11 @@ import UIKit
 
 class Lauout: UIView {
     
-    
-    
-    
-    
-    let vc = ViewController()
-    
-  //  let mainTextView: UITextView = {
-               
-  //         let mainTextView = UITextView()
-               
-    //           return mainTextView
-//               }()
-    
-    
-    
-    
-    
-    //   let view = UIView()
-           
-    
-    
-
-    
-    
-    
+    let vc = noteViewController()
     
     func setConstraints(){
         
-        
-        
         vc.datePickField.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-       
-        
         vc.mainTextView.translatesAutoresizingMaskIntoConstraints = false
         
         self.backgroundColor = .white
@@ -68,8 +38,6 @@ class Lauout: UIView {
               vc.titleTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
         vc.titleTextField.topAnchor.constraint(equalTo: vc.datePickField.bottomAnchor, constant: 20).isActive = true
         
-        
-        
         vc.datePickField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
              vc.datePickField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
              vc.datePickField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
@@ -80,8 +48,6 @@ class Lauout: UIView {
         
         vc.setCurrentDate()
         
-        
-        
         vc.datePickField.datePicker(
                             targer: self,
                             doneAction: #selector(vc.doneAction),
@@ -89,28 +55,7 @@ class Lauout: UIView {
                             datePickerMode: .date
                         )
         
-        
-        
-
-        
-
      }
-    
-    
-    func button() {
-        
-
-        
-     
-        
-        
-        
-        
-    }
-    
-    
-    
-    
 }
 
 

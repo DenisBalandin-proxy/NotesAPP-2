@@ -8,20 +8,18 @@
 
 import UIKit
 
+//class Model: UIView {
 
 
-
-
-import UIKit
-
-class Model: UIView {
-
+struct Model {
     
-    
+    var title: String
+    var date: String
+    var text: String
+
+}
+
             struct EmptyCheck {
-                
-                
-                var w = "XXX"
                 
         var emptyState = String()
         var emptyString = String()
@@ -39,4 +37,4 @@ class Model: UIView {
         }
     }
     
-}
+//}
