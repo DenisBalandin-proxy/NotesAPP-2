@@ -12,6 +12,7 @@
 		D655248C27F424AC00A01D7D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D655248B27F424AC00A01D7D /* ViewController.swift */; };
 		D655249127F424AE00A01D7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D655249027F424AE00A01D7D /* Assets.xcassets */; };
 		D655249427F424AE00A01D7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D655249227F424AE00A01D7D /* LaunchScreen.storyboard */; };
+		D6A8A8D8280FD6F500EACF3C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8A8D7280FD6F500EACF3C /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D655249027F424AE00A01D7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D655249327F424AE00A01D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D655249527F424AE00A01D7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6A8A8D7280FD6F500EACF3C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				D655248727F424AC00A01D7D /* AppDelegate.swift */,
+				D6A8A8D7280FD6F500EACF3C /* Model.swift */,
 				D655248927F424AC00A01D7D /* SceneDelegate.swift */,
 				D655248B27F424AC00A01D7D /* ViewController.swift */,
 				D655249027F424AE00A01D7D /* Assets.xcassets */,
@@ -147,7 +150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:\"\nexport PATH+=~/\nexport PATH+=\"portable_swiftlint\"\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "#export PATH=\"$PATH:\"\n#export PATH+=~/\n#export PATH+=\"portable_swiftlint\"\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -159,6 +162,7 @@
 				D655248C27F424AC00A01D7D /* ViewController.swift in Sources */,
 				D655248827F424AC00A01D7D /* AppDelegate.swift in Sources */,
 				D655248A27F424AC00A01D7D /* SceneDelegate.swift in Sources */,
+				D6A8A8D8280FD6F500EACF3C /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

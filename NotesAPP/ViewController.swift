@@ -8,7 +8,18 @@
 
 import UIKit
 
+
+
+
+
 class ViewController: UIViewController {
+  
+    
+  
+    var xxx = String()
+    var yyy = String()
+
+    
     private let textView = UITextView()
     private let defaults = UserDefaults.standard
     private let textField = UITextField()
@@ -20,12 +31,38 @@ class ViewController: UIViewController {
         return mainTextView
     }()
 
-    private let titleTextField: UITextField = {
+     let titleTextField: UITextField = {
         let titleTextField = UITextField()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
 
         return titleTextField
     }()
+    
+    
+    
+    typealias completionHandler = ([String:Any]) -> Void
+    var completion: completionHandler?
+    
+    
+    let lvc = ListViewController()
+    
+   
+    
+    
+   // func getInfo(someData: String) {
+        
+        
+  //     self.titleTextField.text = someData
+    
+   //   }
+    
+  //  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  //      <#code#>//
+//}
+    
+    
+    
+    
 
     let datePickField = UITextField()
     let date = Date()
@@ -48,6 +85,30 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        titleTextField.text = xxx
+        mainTextView.text = yyy
+        
+        //        let controller = ListViewController()
+    //    controller.delegate = self
+            
+        
+        
+        
+      //  lvc.sendValuesToVC()
+        
+                
+             //   lvc.completionList = { dictList in
+            //        self.titleTextField.text = dictList["nameList"] as! String
+                //   let w = dict["name"]
+            
+           //     }
+        
+        
+        
+        
+        
 
         mainTextView.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
         titleTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 22)
@@ -69,8 +130,8 @@ class ViewController: UIViewController {
             datePickField.text = defaults.string(forKey: "dateField")
         }
 
-        mainTextView.text = defaults.string(forKey: "mainText")
-        titleTextField.text = defaults.string(forKey: "topText")
+    //    mainTextView.text = defaults.string(forKey: "mainText")
+    //    titleTextField.text = defaults.string(forKey: "topText")
 
         view.addSubview(mainTextView)
         view.addSubview(textView)
@@ -89,6 +150,16 @@ class ViewController: UIViewController {
             datePickerMode: .date
         )
     }
+    
+    
+    
+    
+  //  func firstApearence() {
+        
+ //       let currentVC = ListViewController()
+ //       currentVC.w = mainTextView.text!
+    
+ //   }
 
     private func setCurrentDate() {
         // var a = String()
@@ -119,8 +190,8 @@ class ViewController: UIViewController {
     @objc func stopFocusing() {
         save()
 
-        mainTextView.text = defaults.string(forKey: "mainText")
-        titleTextField.text = defaults.string(forKey: "topText")
+    //    mainTextView.text = defaults.string(forKey: "mainText")
+     //   titleTextField.text = defaults.string(forKey: "topText")
 
         var emptyCck = EmptyCheck()
         emptyCck.empty = mainTextView.text
@@ -134,13 +205,80 @@ class ViewController: UIViewController {
             mainTextView.resignFirstResponder()
             titleTextField.resignFirstResponder()
         }
+        
+    //    view.backgroundColor = .black
+        
+        
+     //           let lvc = ListViewController()
+            
+     //       lvc.completionList = { dictList in
+    //           self.titleTextField.text = dictList["nameList"] as? String
+////   let w = dict["name"]
+        
+   //         }
+            
+         //   self.navigationController?.pushViewController(lvc, animated: true)
+        
+        
+        
+
+        
+        
+        
+        guard let name = titleTextField.text else {return}
+        guard let subName = mainTextView.text else {return}
+        let dict = ["name": name, "subName": subName]
+        guard let completionBlock = completion else {return}
+        completionBlock(dict)
+     // self.navigationController?.popViewController(animated: true)
+        
+      //  self.navigationController?.pushViewController(lvc, animated: true)
+        
+
+
+            
+        
+        
+        
+        
+        
     }
+    
+    func callFromListViewController(){
+        
+        
+                      let lvc = ListViewController()
+                    
+                    lvc.completionList = { dictList in
+                     self.titleTextField.text = dictList["nameList"] as? String
+        ////   let w = dict["name"]
+                
+                    }
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+  //  func onClick
+    
+    
+    
+    
+    
+    
+ //   func apply(_ profile: Profile){
+ //       titleTextField.text = profile.textList
+ //   }
 
     @objc func save() {
         let mainText = mainTextView.text
-        let topView = titleTextField.text
+    //    let topView = titleTextField.text
         let dateField = datePickField.text
-        defaults.set(topView, forKey: "topText")
+    //    defaults.set(topView, forKey: "topText")
         defaults.set(mainText, forKey: "mainText")
         defaults.set(dateField, forKey: "dateField")
     }
@@ -225,3 +363,15 @@ extension UIViewController {
         showAlertt(on: viewController, with: "ERROR", message: "Your note is empty!")
     }
 }
+
+
+//extension ViewController: SendDelegate {
+//    func didChange(_ profile: Profile) {
+    
+//        apply(profile)
+        
+    //    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "update"), object: nil)
+
+        
+   // }
+//}
