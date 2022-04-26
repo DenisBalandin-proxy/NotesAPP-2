@@ -13,9 +13,9 @@ import UIKit
 
 struct Model {
     
-    var title: String
-    var date: String
-    var text: String
+    var title = "Test"
+    var date = String()
+    var text = String()
 
 }
 
@@ -36,5 +36,16 @@ struct Model {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
     
 //}

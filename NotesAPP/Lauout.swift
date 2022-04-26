@@ -8,54 +8,98 @@
 
 import UIKit
 
-class Lauout: UIView {
+class Layout: UIView {
     
-    let vc = noteViewController()
+
+    init(mainText: UITextView, title: UITextField, dateField: UITextField) {
+        super.init(frame: .zero)
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        mainText.translatesAutoresizingMaskIntoConstraints = false
+       self.addSubview(mainText)
+        self.addSubview(title)
+        self.addSubview(dateField)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        dateField.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mainText.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
+            mainText.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            mainText.rightAnchor.constraint(equalTo: self.rightAnchor),
+            mainText.leftAnchor.constraint(equalTo: self.leftAnchor),
+            
+            
+            title.topAnchor.constraint(equalTo: dateField.bottomAnchor, constant: 5),
+            title.rightAnchor.constraint(equalTo: self.rightAnchor),
+            title.leftAnchor.constraint(equalTo: self.leftAnchor),
+            
+           dateField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
+           dateField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            dateField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            
+            
+    ])
+        dateField.textAlignment = .center
+    }
     
-    func setConstraints(){
-        
-        vc.datePickField.translatesAutoresizingMaskIntoConstraints = false
-        vc.mainTextView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.backgroundColor = .white
-       
-        self.addSubview(vc.mainTextView)
-     self.addSubview(vc.titleTextField)
-        self.addSubview(vc.datePickField)
-        
-         
-        vc.mainTextView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        vc.mainTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-        vc.mainTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
-        vc.mainTextView.topAnchor.constraint(equalTo: vc.titleTextField.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        vc.mainTextView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-
-        vc.mainTextView.backgroundColor = .yellow
-        
-        vc.mainTextView.becomeFirstResponder()
-        
-                vc.titleTextField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-              vc.titleTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
-        vc.titleTextField.topAnchor.constraint(equalTo: vc.datePickField.bottomAnchor, constant: 20).isActive = true
-        
-        vc.datePickField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
-             vc.datePickField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
-             vc.datePickField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-
-             vc.datePickField.textAlignment = .center
-        
-        vc.titleTextField.placeholder = "Название заметки"
-        
-        vc.setCurrentDate()
-        
-        vc.datePickField.datePicker(
-                            targer: self,
-                            doneAction: #selector(vc.doneAction),
-        cancelAction: #selector(vc.cancelAction),
-                            datePickerMode: .date
-                        )
-        
-     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
+extension UITextField {
+    func datePicker<T>(
+        targer: T,
+        doneAction: Selector,
+        cancelAction: Selector,
+        datePickerMode: UIDatePicker.Mode = .date
+    ) {
+        let screenWidth = UIScreen.main.bounds.width
+        func buttonItem(withSystemItemStyle style: UIBarButtonItem.SystemItem) -> UIBarButtonItem {
+            let buttonTarget = style == .flexibleSpace ? nil : targer
+            let action: Selector? = {
+                switch style {
+                case .cancel:
+                    return cancelAction
+                case .done:
+                    return doneAction
+                default:
+                    return nil
+                }
+            }()
+
+            let barButtonItem = UIBarButtonItem(
+                barButtonSystemItem: style,
+                target: buttonTarget,
+                action: action
+            )
+            return barButtonItem
+        }
+
+        let datePicker = UIDatePicker(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenWidth,
+            height: 216
+        ))
+        datePicker.datePickerMode = datePickerMode
+        self.inputView = datePicker
+        let toolBar = UIToolbar(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenWidth,
+            height: 44
+        ))
+        toolBar.setItems(
+            [buttonItem(withSystemItemStyle: .cancel),
+             buttonItem(withSystemItemStyle: .flexibleSpace),
+             buttonItem(withSystemItemStyle: .done)],
+            animated: true
+        )
+        self.inputAccessoryView = toolBar
+    }
+}
+    
+    
 
