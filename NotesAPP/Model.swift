@@ -8,44 +8,24 @@
 
 import UIKit
 
-//class Model: UIView {
-
-
 struct Model {
-    
     var title = "Test"
     var date = String()
     var text = String()
-
 }
-
-            struct EmptyCheck {
-                
-        var emptyState = String()
-        var emptyString = String()
-        var empty: String? {
-            get {
-                return emptyState
-            }
-            set (newValue) {
-                if newValue?.isEmpty ?? true {
-                    emptyState = "Yes"
-                } else {
-                    emptyState = "No"
-                }
+struct EmptyCheck {
+    var emptyState = String()
+    var emptyString = String()
+    var empty: String? {
+        get {
+            return emptyState
+        }
+        set (newValue) {
+            if newValue?.isEmpty ?? true {
+                emptyState = "Yes"
+            } else {
+                emptyState = "No"
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-    
-//}
+}

@@ -9,45 +9,33 @@
 import UIKit
 
 class Layout: UIView {
-    
-
     init(mainText: UITextView, title: UITextField, dateField: UITextField) {
         super.init(frame: .zero)
-        
         self.translatesAutoresizingMaskIntoConstraints = false
         mainText.translatesAutoresizingMaskIntoConstraints = false
-       self.addSubview(mainText)
+        self.addSubview(mainText)
         self.addSubview(title)
         self.addSubview(dateField)
         title.translatesAutoresizingMaskIntoConstraints = false
         dateField.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             mainText.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
             mainText.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
             mainText.rightAnchor.constraint(equalTo: self.rightAnchor),
             mainText.leftAnchor.constraint(equalTo: self.leftAnchor),
-            
-            
             title.topAnchor.constraint(equalTo: dateField.bottomAnchor, constant: 5),
             title.rightAnchor.constraint(equalTo: self.rightAnchor),
             title.leftAnchor.constraint(equalTo: self.leftAnchor),
-            
-           dateField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
-           dateField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
-            dateField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            
-            
-    ])
+            dateField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
+            dateField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            dateField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20)
+        ])
         dateField.textAlignment = .center
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
-
 extension UITextField {
     func datePicker<T>(
         targer: T,
@@ -68,7 +56,6 @@ extension UITextField {
                     return nil
                 }
             }()
-
             let barButtonItem = UIBarButtonItem(
                 barButtonSystemItem: style,
                 target: buttonTarget,
@@ -76,7 +63,6 @@ extension UITextField {
             )
             return barButtonItem
         }
-
         let datePicker = UIDatePicker(frame: CGRect(
             x: 0,
             y: 0,
@@ -100,6 +86,3 @@ extension UITextField {
         self.inputAccessoryView = toolBar
     }
 }
-    
-    
-
