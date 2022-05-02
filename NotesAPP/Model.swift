@@ -8,24 +8,22 @@
 
 import UIKit
 
-struct Model {
-    var title = "Test"
+final class Storage {
+    var title = String()
     var date = String()
     var text = String()
-}
-struct EmptyCheck {
-    var emptyState = String()
-    var emptyString = String()
-    var empty: String? {
-        get {
-            return emptyState
+    let viewController = NoteViewController()
+
+    init(title: String, text: String, date: String) {
+        self.title = title
+        self.date = date
+        self.text = text
+    }
+    var emptiness = String()
+    var empty: String {
+        if title == "" && text == "" {
+            emptiness = "Yes"
         }
-        set (newValue) {
-            if newValue?.isEmpty ?? true {
-                emptyState = "Yes"
-            } else {
-                emptyState = "No"
-            }
-        }
+        return emptiness
     }
 }

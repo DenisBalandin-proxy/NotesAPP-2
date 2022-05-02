@@ -29,7 +29,7 @@ final class NoteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(
             self,
@@ -53,7 +53,6 @@ final class NoteViewController: UIViewController {
             datePickerMode: .date
         )
         setConstraints()
-        setFromModel()
     }
     func setConstraints() {
         let layoutView = Layout(mainText: mainTextView, title: titleTextField, dateField: datePickField)
@@ -64,11 +63,7 @@ final class NoteViewController: UIViewController {
             layoutView.rightAnchor.constraint(equalTo: view.rightAnchor),
             layoutView.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
-    }
-    func setFromModel() {
-        let model = Model()
-        titleTextField.text = model.title
-        mainTextView.text = model.text
+        mainTextView.becomeFirstResponder()
     }
     public func setCurrentDate() {
         let dateFormatter = DateFormatter()
@@ -80,16 +75,9 @@ final class NoteViewController: UIViewController {
         save()
         mainTextView.text = defaults.string(forKey: "mainText")
         titleTextField.text = defaults.string(forKey: "topText")
-        var emptyCck = EmptyCheck()
-        emptyCck.empty = mainTextView.text
-        let val1 = emptyCck.empty
-        emptyCck.empty = titleTextField.text
-        let val2 = emptyCck.empty
-        if val1 == "Yes" && val2 == "Yes" {
+        let fields = Storage(title: titleTextField.text ?? "", text: mainTextView.text, date: datePickField.text ?? "")
+        if fields.empty == "Yes" {
             showEmptyNoteAlert(on: self)
-        } else {
-            mainTextView.resignFirstResponder()
-            titleTextField.resignFirstResponder()
         }
     }
     @objc func save() {
