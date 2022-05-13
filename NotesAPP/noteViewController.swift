@@ -8,51 +8,58 @@
 
 import UIKit
 
-final class NoteViewController: UIViewController {
+class NoteViewController: UIViewController {
+    typealias CompletionHandler = ([String: Any ]) -> Void
+    var completion: CompletionHandler?
     let mainTextView: UITextView = {
         let mainTextView = UITextView()
         mainTextView.translatesAutoresizingMaskIntoConstraints = false
-        mainTextView.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
+        mainTextView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
+        mainTextView.backgroundColor = .systemGray5
         return mainTextView
     }()
     let titleTextField: UITextField = {
         let titleTextField = UITextField()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 22)
+        titleTextField.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 24)
         return titleTextField
     }()
-    let datePickField = UITextField()
+    let datePickField: UILabel = {
+        let datePickField = UILabel()
+        datePickField.translatesAutoresizingMaskIntoConstraints = false
+        datePickField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        return datePickField
+    }()
     let date = Date()
     var holderDate = String()
     public let defaults = UserDefaults.standard
-    public let myButton = UIBarButtonItem()
+    public var myButton = UIBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        fetchDataFromModel()
+        view.backgroundColor = .systemGray5
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(
             self,
-            selector: #selector(save),
+            selector: #selector(stopFocusing),
             name: UIApplication.willTerminateNotification,
             object: nil
         )
         let myButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(stopFocusing))
         titleTextField.placeholder = "Название заметки"
         setCurrentDate()
-        if datePickField.text != nil || datePickField.text != "" {
-            datePickField.text = defaults.string(forKey: "dateField")
-        }
-        mainTextView.text = defaults.string(forKey: "mainText")
-        titleTextField.text = defaults.string(forKey: "topText")
         navigationItem.rightBarButtonItem = myButton
-        datePickField.datePicker(
-            targer: self,
-            doneAction: #selector(doneAction),
-            cancelAction: #selector(cancelAction),
-            datePickerMode: .date
-        )
         setConstraints()
+        let gesture = UITapGestureRecognizer(
+            target: self,
+            action:
+            #selector(self.tapOnText(_:))
+        )
+        mainTextView.isUserInteractionEnabled = true
+        mainTextView.addGestureRecognizer(gesture)
+        mainTextView.becomeFirstResponder()
+        titleTextField.addTarget(self, action: #selector(showButton), for: .touchDown)
     }
     func setConstraints() {
         let layoutView = Layout(mainText: mainTextView, title: titleTextField, dateField: datePickField)
@@ -65,42 +72,49 @@ final class NoteViewController: UIViewController {
         ])
         mainTextView.becomeFirstResponder()
     }
-    public func setCurrentDate() {
+    @objc func tapOnText(_ sender: UITapGestureRecognizer) {
+        myButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(stopFocusing))
+        navigationItem.rightBarButtonItem = myButton
+        mainTextView.becomeFirstResponder()
+    }
+    func fetchDataFromModel() {
+        let model = Storage()
+        model.fillStorage()
+        mainTextView.text = model.text
+        titleTextField.text = model.title
+        datePickField.text = model.date
+    }
+    @objc func showButton() {
+        myButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(stopFocusing))
+        navigationItem.rightBarButtonItem = self.myButton
+    }
+    func setCurrentDate() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, YYYY"
+        dateFormatter.dateFormat = "MM.dd.yyyy EEEE HH:mm:ss"
         holderDate = dateFormatter.string(from: date)
-        datePickField.placeholder = "\(holderDate)"
+        datePickField.text = "\(holderDate)"
     }
     @objc public func stopFocusing() {
-        save()
-        mainTextView.text = defaults.string(forKey: "mainText")
-        titleTextField.text = defaults.string(forKey: "topText")
-        let fields = Storage(title: titleTextField.text ?? "", text: mainTextView.text, date: datePickField.text ?? "")
-        if fields.empty == "Yes" {
+        let model = Storage()
+        setCurrentDate()
+        model.getGet(title1: titleTextField.text ?? "", text1: mainTextView.text, date1: datePickField.text ?? "")
+        model.fillStorage()
+        if model.empty == "Yes" {
             showEmptyNoteAlert(on: self)
-        }
-    }
-    @objc func save() {
-        let mainText = mainTextView.text
-        let topView = titleTextField.text
-        let dateField = datePickField.text
-        defaults.set(topView, forKey: "topText")
-        defaults.set(mainText, forKey: "mainText")
-        defaults.set(dateField, forKey: "dateField")
-    }
-    @objc func cancelAction() {
-        datePickField.resignFirstResponder()
-    }
-    @objc public func doneAction() {
-        if let datePickerView = datePickField.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, YYY"
-            let dateString = dateFormatter.string(from: datePickerView.date)
-            datePickField.text = dateString
+        } else {
+            navigationItem.rightBarButtonItem = nil
             datePickField.resignFirstResponder()
+            titleTextField.resignFirstResponder()
+            mainTextView.resignFirstResponder()
+            guard let name = titleTextField.text else { return }
+            guard let subName = mainTextView.text else { return }
+            guard let dateName = datePickField.text else { return }
+            let dict = ["name": name, "subName": subName, "dateName": dateName]
+            guard let completionBlock = completion else { return }
+            completionBlock(dict)
         }
     }
-}
+    }
 extension UIViewController {
     func showAlertt(on viewController: UIViewController, with title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

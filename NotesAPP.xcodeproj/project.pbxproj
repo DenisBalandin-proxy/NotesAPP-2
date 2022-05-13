@@ -14,6 +14,8 @@
 		D655249427F424AE00A01D7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D655249227F424AE00A01D7D /* LaunchScreen.storyboard */; };
 		D6A8A8D8280FD6F500EACF3C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8A8D7280FD6F500EACF3C /* Model.swift */; };
 		D6A8A8DA280FD7A300EACF3C /* Lauout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8A8D9280FD7A300EACF3C /* Lauout.swift */; };
+		D6AE5502281FE3DC00ACE512 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE5501281FE3DC00ACE512 /* ListViewController.swift */; };
+		D6AE5504281FF00A00ACE512 /* LayoutForList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE5503281FF00A00ACE512 /* LayoutForList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		D655249527F424AE00A01D7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6A8A8D7280FD6F500EACF3C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		D6A8A8D9280FD7A300EACF3C /* Lauout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lauout.swift; sourceTree = "<group>"; };
+		D6AE5501281FE3DC00ACE512 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		D6AE5503281FF00A00ACE512 /* LayoutForList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutForList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +66,9 @@
 				D6A8A8D7280FD6F500EACF3C /* Model.swift */,
 				D655248927F424AC00A01D7D /* SceneDelegate.swift */,
 				D655248B27F424AC00A01D7D /* NoteViewController.swift */,
+				D6AE5501281FE3DC00ACE512 /* ListViewController.swift */,
 				D6A8A8D9280FD7A300EACF3C /* Lauout.swift */,
+				D6AE5503281FF00A00ACE512 /* LayoutForList.swift */,
 				D655249027F424AE00A01D7D /* Assets.xcassets */,
 				D655249227F424AE00A01D7D /* LaunchScreen.storyboard */,
 				D655249527F424AE00A01D7D /* Info.plist */,
@@ -164,8 +170,10 @@
 			files = (
 				D655248C27F424AC00A01D7D /* NoteViewController.swift in Sources */,
 				D655248827F424AC00A01D7D /* AppDelegate.swift in Sources */,
+				D6AE5502281FE3DC00ACE512 /* ListViewController.swift in Sources */,
 				D6A8A8DA280FD7A300EACF3C /* Lauout.swift in Sources */,
 				D655248A27F424AC00A01D7D /* SceneDelegate.swift in Sources */,
+				D6AE5504281FF00A00ACE512 /* LayoutForList.swift in Sources */,
 				D6A8A8D8280FD6F500EACF3C /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

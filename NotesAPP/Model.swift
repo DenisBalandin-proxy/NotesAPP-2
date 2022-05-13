@@ -12,12 +12,19 @@ final class Storage {
     var title = String()
     var date = String()
     var text = String()
-    let viewController = NoteViewController()
-
-    init(title: String, text: String, date: String) {
-        self.title = title
-        self.date = date
-        self.text = text
+    let defaults = UserDefaults.standard
+    func getGet(title1: String, text1: String, date1: String) {
+        let mainText = text1
+        let topView = title1
+        let dateField = date1
+        defaults.set(topView, forKey: "topText")
+        defaults.set(mainText, forKey: "mainText")
+        defaults.set(dateField, forKey: "dateField")
+    }
+    func fillStorage() {
+        title = defaults.string(forKey: "topText") ?? ""
+        text = defaults.string(forKey: "mainText") ?? ""
+        date = defaults.string(forKey: "dateField") ?? ""
     }
     var emptiness = String()
     var empty: String {
